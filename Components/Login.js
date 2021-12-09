@@ -8,9 +8,9 @@ function Login(props) {
     };
 
     const handleSubmit = () => {
-        if(validateEmail(email)) {
+        if (validateEmail(email)) {
             props.navigation.navigate("Home")
-        }else {
+        } else {
             console.log("error");
         }
     }
@@ -18,6 +18,7 @@ function Login(props) {
     return (
         <View>
             <TextInput
+                style={{ color: "black" }}
                 onChangeText={setEmail}
                 placeholder={"Enter a valid email"}
 

@@ -7,7 +7,8 @@ import NavBar from './NavBar'
 
 const styles = StyleSheet.create({
     ScrollView:{
-        alignItems: "center"
+        alignItems: "center",
+        // backgroundColor: "black"
     }
 })
 
