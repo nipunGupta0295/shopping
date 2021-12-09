@@ -1,8 +1,16 @@
 import React from 'react'
-import { FlatList, ScrollView, View } from 'react-native'
+import { FlatList, ScrollView, View, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from './CartItem';
 import BuyCart from './BuyCart';
+
+let styles = StyleSheet.create({
+    conatiner: {
+        justifyContent: "center",
+        alignItems: "center"
+    }
+})
+
 function Cart() {
     const state = useSelector(state => state)
     const cart = state.cart;
@@ -13,7 +21,7 @@ function Cart() {
         totalval += item.qty*item.Price;
     })
     return (
-        <View>
+        <View style={StyleSheet.container}>
             <BuyCart totalprice={totalval}/>
             <FlatList
                 data={cart}

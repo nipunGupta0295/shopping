@@ -5,12 +5,12 @@ const styles = StyleSheet.create({
     imgBackground: {
         alignItems: "center",
         justifyContent: "center",
-        padding: 100,
-        backgroundColor: "grey",
-        height: "10%",
+        padding: 10,
+        backgroundColor: "white",
+        width: "70%",
         marginTop: 10,
-        marginBottom: 10
-
+        marginBottom: 10,
+        borderRadius: 20
     },
     img: {
         resizeMode: "contain",

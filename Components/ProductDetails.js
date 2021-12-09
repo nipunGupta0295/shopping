@@ -6,20 +6,21 @@ import * as action from '../redux/shoppingActions';
 import vector from '../assets/images/Vector.png'
 import NavBar from './NavBar'
 import { useToast } from 'react-native-toast-notifications';
+import Carousel from 'react-native-snap-carousel';
 
 let styles = StyleSheet.create({
     container: {
         // alignItems: "center",
         color: "black",
         fontFamily: "Mukta",
-        marginBottom: 0
+        flexGrow: 1,
+        paddingBottom: 0
     },
     imgContainer: {
         alignItems: "center",
         justifyContent: "center",
-        padding: 100,
+        padding: 120,
         marginLeft: 20,
-        backgroundColor: "lightgrey",
         height: "10%",
         width: "90%",
     },
@@ -27,7 +28,6 @@ let styles = StyleSheet.create({
     img: {
         resizeMode: "contain",
         width: 200,
-        height: 200
     },
 
     title: {
@@ -128,7 +128,15 @@ let styles = StyleSheet.create({
 
     },
     description: {
-        padding: 10
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: "lightgrey",
+    }
+    ,
+    dealer: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: "lightgrey",
     }
 })
 
@@ -136,62 +144,78 @@ function ProductDetails(props) {
     const dispatch = useDispatch();
     let details = props.route.params.details;
     let toast = useToast();
+    const isCarousel = React.useRef(null)
     return (
         <>
             <NavBar />
-            <ScrollView styles={styles.container}>
-                <View style={styles.imgContainer}>
-                    <Image style={styles.img} source={details.src} />
-                </View>
-                <View style={styles.details}>
-                    <Text style={styles.title}>{details.name}</Text>
-                    <Text style={styles.price}>₹{details.Price}</Text>
-                </View>
-                <View style={styles.buttons}>
-                    <View style={styles.cms}>
-                        <Text style={{ color: "black" }}>कमीशन ₹12.88</Text>
+            <View>
+                <ScrollView contentContainerStyle={styles.container}>
+                    <View style={styles.imgContainer}>
+                        <Image style={styles.img} source={details.src} />
                     </View>
-                    <TouchableOpacity style={styles.whbtn} title="Add to cart">
-                        <View style={styles.whbuytxt}><Image source={vector} /><Text style={{ color: "black" }}>शेयर करें</Text></View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buybtn} title="Add to cart" onPress={() => {
-                        dispatch(action.addToCart(details.id))
-                        toast.show("1 item added to cart", { type: "success" })
-                    }}>
-                        <View style={styles.buytxt}><Text style={{ color: "#E40046" }}>खरीदें</Text></View>
-                        <View style={styles.plus}><Text>+</Text></View>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.details}>
+                        <Text style={styles.title}>{details.name}</Text>
+                        <Text style={styles.price}>₹{details.Price}</Text>
+                    </View>
+                    <View style={styles.buttons}>
+                        <View style={styles.cms}>
+                            <Text style={{ color: "black" }}>कमीशन ₹12.88</Text>
+                        </View>
+                        <TouchableOpacity style={styles.whbtn} title="Add to cart">
+                            <View style={styles.whbuytxt}><Image source={vector} /><Text style={{ color: "black" }}>शेयर करें</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buybtn} title="Add to cart" onPress={() => {
+                            dispatch(action.addToCart(details.id))
+                            toast.show("1 item added to cart", { type: "success" })
+                        }}>
+                            <View style={styles.buytxt}><Text style={{ color: "#E40046" }}>खरीदें</Text></View>
+                            <View style={styles.plus}><Text>+</Text></View>
+                        </TouchableOpacity>
+                    </View>
 
-                <View style={styles.del}>
-                    <View>
-                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>इजी रेटर्नेबल</Text>
-                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>3 दिन के अंदर</Text>
+                    <View style={styles.del}>
+                        <View>
+                            <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>इजी रेटर्नेबल</Text>
+                            <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>3 दिन के अंदर</Text>
+                        </View>
+                        <View>
+                            <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>मुफ़्त डिलीवरी</Text>
+                        </View>
+                        <View>
+                            <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>कैश ऑन डिलीवरी</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>मुफ़्त डिलीवरी</Text>
-                    </View>
-                    <View>
-                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>कैश ऑन डिलीवरी</Text>
-                    </View>
-                </View>
 
-                <View style={styles.deldetails}>
-                    <View>
-                        <Text style={{ color: "black" }}>Delivery by</Text>
+                    <View style={styles.deldetails}>
+                        <View>
+                            <Text style={{ color: "black" }}>Delivery by</Text>
+                        </View>
+                        <View>
+                            <Text style={{ color: "black" }}>7 Nov, Saturday</Text>
+                            <Text style={{ color: "black" }}>If ordered before 4:05 PM</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={{ color: "black" }}>7 Nov, Saturday</Text>
-                        <Text style={{ color: "black" }}>If ordered before 4:05 PM</Text>
-                    </View>
-                </View>
 
-                <View style={styles.description}>
-                    <Text style={{ color: "black", fontSize: 25}}>डिस्क्रिप्शन </Text>
-                    <Text style={{ color: "rgba(0, 0, 0, 0.86)" }}>Consequat nulla ea exercitation reprehenderit id adipisicing. Ipsum nostrud veniam fugiat excepteur ipsum dolore laboris.
-                        Incididunt mollit laboris amet officia veniam sunt id laboris sint nostrud tempor. Ullamco ad tempor velit est velit enim tempor mollit occaecat aute culpa.</Text>
-                </View>
-            </ScrollView>
+                    <View style={styles.description}>
+                        <Text style={{ color: "black", fontSize: 25 }}>डिस्क्रिप्शन </Text>
+                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>Consequat nulla ea exercitation reprehenderit id adipisicing. Ipsum nostrud veniam fugiat excepteur ipsum dolore laboris.
+                            Incididunt mollit laboris amet officia veniam sunt id laboris sint nostrud tempor. Ullamco ad tempor velit est velit enim tempor mollit occaecat aute culpa.</Text>
+                    </View>
+
+                    <View style={styles.dealer}>
+                        <Text style={{ color: "black", fontSize: 16 }}>निर्माता का डिटेल </Text>
+                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>Lifestyle Int Pvt Ltd, 77 Degree Town Centre, Building No. 3, West Wing, Off HAL Airport Road, Yamlur, Bangalore-560037</Text>
+                    </View>
+                    <View style={styles.dealer}>
+                        <Text style={{ color: "black", fontSize: 16 }}>इम्पोर्टर्स डिटेल </Text>
+                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>Lifestyle Int Pvt Ltd, 77 Degree Town Centre, Building No. 3, West Wing, Off HAL Airport Road, Yamlur, Bangalore-560037</Text>
+                    </View>
+                    <View style={styles.dealer}>
+                        <Text style={{ color: "black", fontSize: 16 }}>पैकर्स डिटेल </Text>
+                        <Text style={{ color: "rgba(0, 0, 0, 0.56)" }}>Lifestyle Int Pvt Ltd, 77 Degree Town Centre, Building No. 3, West Wing, Off HAL Airport Road, Yamlur, Bangalore-560037</Text>
+                    </View>
+                </ScrollView>
+            </View>
         </>
     )
 }

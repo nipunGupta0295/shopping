@@ -6,7 +6,9 @@ import Product from './Product';
 import NavBar from './NavBar';
 const styles = StyleSheet.create({
     list: {
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center",
+        paddingBottom: 100
     }
 })
 

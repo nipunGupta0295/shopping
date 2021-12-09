@@ -10,10 +10,11 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: 20,
         marginBottom: 20,
-        backgroundColor: "rgba(100, 52, 52, 0.8)"
+        backgroundColor: "grey",
     },
 
     container: {
+        width: "80%",
         flexDirection: 'row',
         marginBottom: 10
     },
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginLeft: 20,
         backgroundColor: "grey",
-        width: "30%",
+        width: "33%",
 
     },
     img: {
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
 // const dispatch = useDispatch();
 function CartItem(props) {
     const dispatch = useDispatch();
-    let toast = useToast();
     return (
         <View style={styles.outerContainer}>
             <View style={styles.container}>
