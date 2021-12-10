@@ -5,9 +5,12 @@ import CartItem from './CartItem';
 import BuyCart from './BuyCart';
 
 let styles = StyleSheet.create({
-    conatiner: {
+    container: {
         justifyContent: "center",
         alignItems: "center"
+    },
+    cartitem: {
+        marginBottom: 100
     }
 })
 
@@ -21,9 +24,10 @@ function Cart() {
         totalval += item.qty*item.Price;
     })
     return (
-        <View style={StyleSheet.container}>
+        <View style={styles.container}>
             <BuyCart totalprice={totalval}/>
             <FlatList
+                style={styles.cartitem}
                 data={cart}
                 renderItem={(item) => <CartItem item={item}/>}
                 keyExtractor={(item) => item.id}

@@ -11,12 +11,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         backgroundColor: "grey",
+        borderRadius: 20
     },
 
     container: {
         width: "80%",
         flexDirection: 'row',
-        marginBottom: 10
+        marginBottom: 10,
     },
     imgContainer: {
         alignItems: "center",
