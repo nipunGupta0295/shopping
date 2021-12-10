@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Alert, Image, Text, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useToast } from 'react-native-toast-notifications';
 import * as action from '../redux/shoppingActions';
 
@@ -92,6 +92,14 @@ const styles = StyleSheet.create({
 
 function Product(props) {
     //console.log("pro", props);
+    const state = useSelector(state=>state);
+    let cart = state.cart;
+    let item = cart.find((item) => {
+        return item.id == props.item.item.id
+    })
+    console.log("state", item);
+    let num = item != undefined?item.qty: 0;
+    //let num = 0;
     const dispatch = useDispatch();
     let toast = useToast();
     return (
@@ -114,7 +122,7 @@ function Product(props) {
 
                 <View style={styles.buttonContainer}>
                     <View style={styles.cms}>
-                        <Text style={{ color: "black" }}>1 pc</Text>
+                        <Text style={{ color: "black" }}>{num}pc</Text>
                     </View>
                     <TouchableOpacity style={styles.buybtn} title="Add to cart" onPress={() => {
                         dispatch(action.addToCart(props.item.item.id))
