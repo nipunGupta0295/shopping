@@ -7,7 +7,6 @@ import NavBar from './NavBar';
 const styles = StyleSheet.create({
     list: {
         alignItems: "center",
-        justifyContent: "center",
         paddingBottom: 100
     }
 })
